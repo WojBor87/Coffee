@@ -31,5 +31,5 @@ while next_coffee:
         got_enough_resources = check_resources(choose)
 
     # TODO 5. Process coins.
-    # TODO 7. Check transaction successful?
-    # TODO 8. Make Coffee.
+    # TODO 6. Check transaction successful?
+    # TODO 7. Make Coffee.
