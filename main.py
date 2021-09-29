@@ -47,17 +47,17 @@ def process_coins():
     return amount_paid
 
 
-def make_coffee(choose):
+def make_coffee(coffee_choose):
     """
     Function that actually make a coffee :)
-    :param drink: ingredients urgent to make a coffee
+    :param coffee_choose: coffee that user choose
     :return: Coffee
     """
     drink = MENU[choose]["ingredients"]
     for current_resource in drink:
         if drink[current_resource]:
             resources[current_resource] -= drink[current_resource]
-    return f"Here you are, here is your ☕ {choose}"
+    return f"Here you are, here is your ☕ {coffee_choose}"
 
 
 is_online = True
