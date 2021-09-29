@@ -16,6 +16,13 @@ def check_resources(drink) -> bool:
 
 
 def check_transaction(amount, cost):
+    """
+    Function check if user paid enough for coffee he choose.
+    Return True or False depends on amount of money he paid and coffee cost
+    :param amount: How much user paid
+    :param cost: How much coffee cost
+    :return: True if user paid enough for coffee
+    """
     if amount == cost:
         resources["money"] += cost
         return True
@@ -29,6 +36,10 @@ def check_transaction(amount, cost):
 
 
 def process_coins():
+    """
+    Function ask how many coins (quarters, dimes, nickles and pennies) user paid and calculate total value of all coins.
+    :return: Total amount of money user paid for coffee (int)
+    """
     amount_paid = int(input("How much quarters do you pay? ")) * 0.25
     amount_paid += int(input("How much dimes do you pay? ")) * 0.10
     amount_paid += int(input("How much nickles do you pay? ")) * 0.05
@@ -36,10 +47,17 @@ def process_coins():
     return amount_paid
 
 
-def make_coffee(drink):
+def make_coffee(choose):
+    """
+    Function that actually make a coffee :)
+    :param drink: ingredients urgent to make a coffee
+    :return: Coffee
+    """
+    drink = MENU[choose]["ingredients"]
     for current_resource in drink:
         if drink[current_resource]:
             resources[current_resource] -= drink[current_resource]
+    return f"Here you are, here is your ☕ {choose}"
 
 
 is_online = True
@@ -62,8 +80,7 @@ while is_online:
         if check_resources(MENU[choose]["ingredients"]):
             total_paid = process_coins()
             if check_transaction(total_paid, MENU[choose]["cost"]):
-                make_coffee(MENU[choose]["ingredients"])
-                print(f"Here you are, here is your {choose}")
+                print(make_coffee(choose))
             else:
                 print(f"Sorry that's not enough money. {total_paid} refunded.")
         else:
