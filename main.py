@@ -15,19 +15,30 @@ def check_resources(drink) -> bool:
     return got_resources
 
 
-def process_coins():
-    amount_paid = 0
-    return amount_paid
+def check_transaction(amount, cost):
+    if amount == cost:
+        return True
+    elif amount > cost:
+        rest = round(amount - cost, 3)
+        print(f"rest:$ {rest}")
+        return True
+    else:
+        return False
 
 
-def check_transaction(amount):
-    paid_enough = False
-    return paid_enough
+def process_coins(drink):
+    quarters = int(input("How much quarters do you pay? ")) * 0.25
+    dimes = int(input("How much dimes do you pay? ")) * 0.10
+    nickles = int(input("How much nickles do you pay? ")) * 0.05
+    pennies = int(input("How much pennies do you pay? ")) * 0.01
+    amount_paid = quarters + dimes + nickles + pennies
+    return check_transaction(amount_paid, drink)
 
 
 def make_coffee(drink):
     for current_resource in resources:
-        resources[current_resource] -= drink[current_resource]
+        if drink[current_resource]:
+            resources[current_resource] -= drink[current_resource]
 
 
 next_coffee = True
@@ -46,16 +57,11 @@ while next_coffee:
     elif choose == "off":
         next_coffee = False
     else:
-        got_enough_resources = check_resources(MENU[choose]["ingredients"])
-        if got_enough_resources:
-            paid = process_coins()
-            if check_transaction(paid):
+        if check_resources(MENU[choose]["ingredients"]):
+            if process_coins(MENU[choose]["cost"]):
                 make_coffee(MENU[choose]["ingredients"])
+                print(f"Here you are, here is your {choose}")
             else:
-                pass
+                print("Not enough coins")
         else:
             print("Need to refill Coffee Machine!")
-
-    # TODO 5. Process coins.
-    # TODO 6. Check transaction successful?
-    # TODO 7. Make Coffee.
